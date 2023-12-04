@@ -11,15 +11,14 @@ const props = defineProps({
 })
 
 const getNew = async () => {
-  const result = await fetchNew(props.newsItem);
-  return result;
+  return await fetchNew(props.newsItem);
 }
 
 onMounted(async () => {
   newsItem.value = await getNew();
 });
 
-const timeConverter = () => {
+const converterTime = () => {
   return new Date(newsItem.value.time * 1000).toLocaleString('ru');
 }
 </script>
@@ -27,8 +26,9 @@ const timeConverter = () => {
 <template>
     <div class="new-item" @click="$router.push(`/new/${newsItem.id}`)">
         <h2 class="new-item__title">{{ newsItem.title }}</h2>
-        <p class="new-item__item">Автор: {{ newsItem.by }}</p>
-        <p class="new-item__item">Дата публикации: {{ timeConverter() }}</p>
+        <p class="new__item">Author: {{ newsItem.by }}</p>
+        <p class="new__item">Data: {{ converterTime() }}</p>
+        <a href="{{ newsItem.url }}" class="new__link">Link to history</a>
     </div>
 </template>
 
@@ -49,10 +49,15 @@ const timeConverter = () => {
     font-weight: 700;
 }
 
-.new-item__item  {
+.new__item  {
     color: var(--main-color);
     font-size: 12px;
     font-weight: 400;
+}
+
+.new__link{
+  font-size: 12px;
+  font-weight: 400;
 }
 
 @media screen and (max-width: 320px){

@@ -5,11 +5,11 @@ import { fetchNews } from '@/composables/api/allNews'
 const newsIndex = ref([]);
 
 const getNews = async () => {
-  newsIndex.value =  await fetchNews()
+  newsIndex.value = await fetchNews()
 }
 
 const displayedNews = computed(() => {
-  return newsIndex?.value?.slice(0, 100);
+  return newsIndex.value.slice(0, 100);
 })
 
 onMounted(async () => {
@@ -38,7 +38,13 @@ onMounted(async () => {
 
 @media screen and (max-width: 320px){
     .news-list{
-      margin: 0px 20px;
+      margin: 0 20px;
     }
+}
+
+@media screen and (max-width: 768px){
+  .news-list{
+    margin: 0 20px;
+  }
 }
 </style>

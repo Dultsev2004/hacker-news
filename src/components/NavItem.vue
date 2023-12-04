@@ -16,9 +16,9 @@
       color: #FFFFFF;
       text-transform: uppercase;
       cursor:pointer;
+      border-radius: 10px;
       padding: 5px 10px;
       transition: all .3s;
-      border-radius: 10px;
       background: none;
       border: none;
       width: 100%;

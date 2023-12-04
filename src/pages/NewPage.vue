@@ -13,6 +13,6 @@ onMounted(async () => {
 
 <template>
     <main class="main">
-        <NewPost :newsItem="newsItem" :new-comments="newsItem.id"></NewPost>
+        <NewPost :newsItem="newsItem"></NewPost>
     </main>
 </template>

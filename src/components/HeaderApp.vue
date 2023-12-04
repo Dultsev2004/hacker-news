@@ -78,4 +78,12 @@ const getNews = async () => {
         flex-direction: column;
     }
 }
+
+@media screen and (max-width: 786px){
+  .header-content{
+    display:flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+}
 </style>
