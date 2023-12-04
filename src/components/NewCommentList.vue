@@ -1,6 +1,6 @@
 <script setup>
 import {fetchNews} from "@/composables/api/allNews";
-import {computed, onMounted, ref} from "vue";
+import { onMounted, ref} from "vue";
 import NewComment from "@/components/NewComment.vue";
 const newsIndex = ref([]);
 
@@ -22,7 +22,7 @@ onMounted(async () => {
 
 <template>
   <div class="comments">
-    <NewComment v-for="item in newsIndex" :news-comment="item" :key="item"/>
+    <NewComment v-for="item in newsIndex" :news-item="item" :key="item"/>
   </div>
 </template>
 
@@ -35,6 +35,5 @@ onMounted(async () => {
   border-top: 5px solid var(--main-color);
   padding: 10px;
   background: #E0E0E0;
-  position: relative;
 }
 </style>

@@ -1,5 +1,6 @@
 <script setup>
 import NavList from "@/components/NavList.vue"
+import ButtonDefault from '@/components/UI/ButtonDefault.vue'
 import { ref } from "vue";
 import { fetchNews } from '@/composables/api/allNews'
 const news = ref([]);
@@ -50,7 +51,7 @@ const getNews = async () => {
     gap: 20px;
     max-width: 920px;
     width: 100%;
-    padding: 10px 0px;
+    padding: 10px 0;
     margin: 0 auto;
 }
 

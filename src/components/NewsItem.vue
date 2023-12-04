@@ -66,11 +66,5 @@ const converterTime = () => {
         font-size: 16px;
         font-weight: 700;
     }
-
-    .new-item__item {
-        color: var(--main-color);
-        font-size: 10px;
-        font-weight: 400;
-    }
 }
 </style>

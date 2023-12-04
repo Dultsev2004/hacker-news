@@ -1,17 +1,16 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import {fetchNew} from "@/composables/api/allNews";
-
+import NewComment from "@/components/NewComment.vue"
 const newComment = ref({});
 
 const props = defineProps({
   newComment: {
-    type: Object,
+    type: Number,
     required: true,
   },
 })
 
-let loading = ref(false);
 const getNew = async () => {
   return await fetchNew(props.newComment);
 }
@@ -34,7 +33,7 @@ const converterTime = () => {
     <div class="comment-body">
       <div class="comment_item">{{props.newComment?.text }}</div>
       <div class="comment_item" v-if=" props.newComment?.kids &&  props.newComment?.kids.length">
-        <CommentsList :commentId=" props.newComment?.kids"/>
+        <NewComment :commentId=" props.newComment?.kids"/>
       </div>
     </div>
   </div>
@@ -59,12 +58,6 @@ const converterTime = () => {
 }
 
 .comment_item {
-  color: var(--main-color);
-  font-size: 13px;
-  font-weight: 400;
-}
-
-.comment-error{
   color: var(--main-color);
   font-size: 13px;
   font-weight: 400;
