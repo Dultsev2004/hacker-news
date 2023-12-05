@@ -3,7 +3,7 @@ import NewPost from "@/components/NewPost.vue";
 import {fetchNew} from "@/composables/api/allNews";
 import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
-const newsItem = ref({});
+const newsItem = ref();
 const route = useRoute()
 
 onMounted(async () => {
@@ -13,6 +13,6 @@ onMounted(async () => {
 
 <template>
     <main class="main">
-        <NewPost :newsItem="newsItem"></NewPost>
+        <NewPost v-if="newsItem" :newsItem="newsItem"></NewPost>
     </main>
 </template>

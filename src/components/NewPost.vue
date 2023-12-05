@@ -20,13 +20,13 @@ const counterComment = computed(() => {
 </script>
 
 <template>
-    <div class="new-post">
+    <div class="new-post" v-if="props.newsItem?.title">
         <h2 class="new-post__title">{{ newsItem?.title }}</h2>
         <p class="new-post__item">Author: {{ newsItem?.by }}</p>
         <p class="new-post__item">Data: {{ converterTime() }}</p>
         <p class="new-post__item">Comment: {{ counterComment }}</p>
         <a href="{{ newsItem.url }}" class="new__link">Link to history</a>
-        <NewCommentList :comments="props.newsItem.kids"/>
+        <NewCommentList v-if="props.newsItem.kids" :news-item="props.newsItem.kids"/>
     </div>
 </template>
 

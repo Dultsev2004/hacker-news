@@ -12,7 +12,7 @@ const fetchNews = async () => {
 const fetchNew = async (id) => {
     try {
         // По id запрашиваем данные для конкретного поста
-        const responsePost = await fetch(`${API_URL}/v0/item/${id}.json?print=pretty`);
+        const responsePost = await fetch(`${API_URL}v0/item/${id}.json?print=pretty`);
         return await responsePost.json();
     } catch (event) {
         console.error(event);

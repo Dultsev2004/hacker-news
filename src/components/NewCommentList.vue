@@ -1,28 +1,31 @@
 <script setup>
-import {fetchNews} from "@/composables/api/allNews";
+import {fetchNew } from "@/composables/api/allNews";
 import { onMounted, ref} from "vue";
 import NewComment from "@/components/NewComment.vue";
-const newsIndex = ref([]);
+const commentsIndex = ref([]);
 
 const props = defineProps({
   newsItem: {
-    type: Number,
+    type: Array,
     required: true,
   },
 })
 
-const getNews = async () => {
-  newsIndex.value = await fetchNews(props.newsItem)
+const getCommentsId = async () => {
+    console.log(props.newsItem);
+    for (const item of props.newsItem) {
+        commentsIndex.value.push(await fetchNew(item));
+    }
 }
 
 onMounted(async () => {
-  await getNews();
+  await getCommentsId();
 });
 </script>
 
 <template>
   <div class="comments">
-    <NewComment v-for="item in newsIndex" :news-item="item" :key="item"/>
+    <NewComment v-for="item in commentsIndex" :comment-id="item" :key="item"/>
   </div>
 </template>
 
@@ -32,8 +35,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  border-top: 5px solid var(--main-color);
-  padding: 10px;
+  padding: 3px;
   background: #E0E0E0;
 }
 </style>
