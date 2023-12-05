@@ -62,4 +62,13 @@ const converterTime = () => {
     font-size: 13px;
     font-weight: 400;
 }
+
+@media screen and (max-width: 786px){
+  .comment_item {
+    word-break: break-word;
+    color: var(--main-color);
+    font-size: 10px;
+    font-weight: 400;
+  }
+}
 </style>

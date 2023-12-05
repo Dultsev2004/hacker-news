@@ -71,7 +71,7 @@ const counterComment = computed(() => {
 
     .new-post__title {
       color: var(--main-color);
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
     }
 
@@ -90,7 +90,6 @@ const counterComment = computed(() => {
     background: #FFFFFF;
     border-radius: 10px;
     padding: 20px;
-    margin: 0 20px;
   }
 }
 </style>
