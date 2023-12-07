@@ -1,31 +1,31 @@
 <script setup>
-import {computed, onMounted, ref} from "vue";
+import {computed, ref} from "vue";
 import NewCommentList from "@/components/NewCommentList.vue";
 const newComment = ref({});
 
 const props = defineProps({
-  commentId: {
+  comment: {
     type: Object,
     required: true,
   },
 })
 
-onMounted(async () => {
-    newComment.value = props.commentId;
+newComment.value = props.comment;
+
+
+
+const converterTime = computed(() => {
+  return new Date(newComment.value.time * 1000).toLocaleString('ru');
 });
 
-const converterTime = () => {
-  return new Date(newComment.value.time * 1000).toLocaleString('ru');
-}
-
 const converterComment = () => {
-    const commentAPI = newComment.value.text;
+    const commentApi = newComment.value.text;
     let newStr = "";
 
-    for (let symbol in commentAPI) {
+    for (let symbol in commentApi) {
         newStr += String.fromCharCode(parseInt(symbol,16))
     }
-    return commentAPI
+    return commentApi
 }
 </script>
 
@@ -33,7 +33,7 @@ const converterComment = () => {
   <div class="comment">
     <div class="comment-header">
       <p class="comment-header__item">Author comment: {{newComment.by }}</p>
-      <p class="comment-header__item">Comment Added: {{ converterTime() }}</p>
+      <p class="comment-header__item">Comment Added: {{ converterTime }}</p>
     </div>
     <div class="comment-body">
       <p class="comment-body__item" v-html="converterComment()"></p>
