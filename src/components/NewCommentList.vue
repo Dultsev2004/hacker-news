@@ -12,14 +12,13 @@ const props = defineProps({
 })
 
 const getCommentsId = async () => {
-    console.log(props.newsItem);
     for (const item of props.newsItem) {
         commentsIndex.value.push(await fetchNew(item));
     }
 }
 
 onMounted(async () => {
-  await getCommentsId();
+  await getCommentsId(), 5000
 });
 </script>
 

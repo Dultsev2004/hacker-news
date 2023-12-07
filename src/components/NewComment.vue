@@ -17,17 +17,27 @@ onMounted(async () => {
 const converterTime = () => {
   return new Date(newComment.value.time * 1000).toLocaleString('ru');
 }
+
+const converterComment = () => {
+    const commentAPI = newComment.value.text;
+    let newStr = "";
+
+    for (let symbol in commentAPI) {
+        newStr += String.fromCharCode(parseInt(symbol,16))
+    }
+    return commentAPI
+}
 </script>
 
 <template>
   <div class="comment">
     <div class="comment-header">
-      <p class="comment_item">Author comment: {{newComment.by }}</p>
-      <p class="comment_item">Comment Added: {{ converterTime() }}</p>
+      <p class="comment-header__item">Author comment: {{newComment.by }}</p>
+      <p class="comment-header__item">Comment Added: {{ converterTime() }}</p>
     </div>
     <div class="comment-body">
-      <p class="comment_item">{{ newComment.text }}</p>
-      <div class="comment_item comment_item__kids" v-if="newComment.kids && newComment.kids.length">
+      <p class="comment-body__item" v-html="converterComment()"></p>
+      <div class="comment-body__item comment_item__kids" v-if="newComment.kids && newComment.kids.length">
           <NewCommentList :news-item="newComment.kids"></NewCommentList>
       </div>
     </div>
@@ -47,7 +57,6 @@ const converterTime = () => {
 .comment-header {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
 }
 
 .comment-body {
@@ -56,7 +65,14 @@ const converterTime = () => {
     gap: 10px;
 }
 
-.comment_item {
+.comment-header__item {
+    word-break: break-word;
+    color: var(--main-color);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.comment-body__item{
     word-break: break-word;
     color: var(--main-color);
     font-size: 13px;
@@ -64,11 +80,18 @@ const converterTime = () => {
 }
 
 @media screen and (max-width: 786px){
-  .comment_item {
+  .comment-header__item {
     word-break: break-word;
     color: var(--main-color);
     font-size: 10px;
-    font-weight: 400;
+    font-weight: 700;
   }
+    .comment-body__item{
+        word-break: break-word;
+        color: var(--main-color);
+        font-size: 10px;
+        font-weight: 400;
+    }
+
 }
 </style>
