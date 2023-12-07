@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {computed, ref, onMounted} from "vue";
 import {fetchNew} from "@/composables/api/allNews";
 const newsItem = ref({});
 
@@ -8,26 +8,21 @@ const props = defineProps({
     type: Number,
     required: true,
   },
-})
-
-const getNew = async () => {
-  return await fetchNew(props.newsItem);
-}
-
-onMounted(async () => {
-  newsItem.value = await getNew();
 });
 
-const converterTime = () => {
+onMounted(async () => {
+    newsItem.value = await fetchNew(props.newsItem);
+})
+const converterTime = computed(() => {
   return new Date(newsItem.value.time * 1000).toLocaleString('ru');
-}
+});
 </script>
 
 <template>
     <div class="new-item" @click="$router.push(`/new/${newsItem.id}`)">
         <h2 class="new-item__title">{{ newsItem.title }}</h2>
         <p class="new__item">Author: {{ newsItem.by }}</p>
-        <p class="new__item">Data: {{ converterTime() }}</p>
+        <p class="new__item">Data: {{ converterTime }}</p>
         <a href="{{ newsItem.url }}" class="new__link">Link to history</a>
     </div>
 </template>

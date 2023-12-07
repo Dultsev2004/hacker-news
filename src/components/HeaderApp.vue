@@ -2,21 +2,21 @@
 import NavList from "@/components/NavList.vue"
 import ButtonDefault from '@/components/UI/ButtonDefault.vue'
 import { ref } from "vue";
-import { fetchNews } from '@/composables/api/allNews'
+import { fetchIdNews } from '@/composables/api/allNews'
 const news = ref([]);
 
 const getNews = async () => {
-  news.value = await fetchNews()
+  news.value = await fetchIdNews()
 }
 </script>
 
 <template>
     <header class="header">
         <section class="header-content">
-            <a class="logo" target="_blank" href="https://news.ycombinator.com/news">
+            <div class="logo" @click="$router.push('/')">
                 <img class="logo__img" src="../assets/img/image-general/logo.png" alt="Logo">
                 <h1 class="logo__name">Hacker News</h1>
-            </a>
+            </div>
             <NavList></NavList>
             <div class="header-btns">
                 <ButtonDefault @click="getNews">Reset News</ButtonDefault>
@@ -59,6 +59,7 @@ const getNews = async () => {
     display: flex;
     align-items: center;
     gap: 5px;
+    cursor: pointer;
 }
 
 .logo__img {
