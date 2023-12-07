@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {computed, ref} from "vue";
 import {fetchNew} from "@/composables/api/allNews";
 const newCommentKids = ref({});
 
@@ -10,27 +10,25 @@ const props = defineProps({
     },
 })
 
-const getCommentsId = async () => {
-    console.log(props.commentKids);
-    for (const item of props.commentKids) {
-        newCommentKids.value.push(await fetchNew(item));
-    }
-}
+const getCommentsId = () => {
+    props.commentKids.forEach(async (item) => {
+        const request = await fetchNew(item);
+        newCommentKids.value.push(request);
+    })
+};
 
-onMounted(async () => {
-    await getCommentsId();
-});
+getCommentsId();
 
-const converterTime = () => {
+const converterTime = computed(() => {
     return new Date(newCommentKids.value.time * 1000).toLocaleString('ru');
-}
+});
 </script>
 
 <template>
     <div class="comment">
         <div class="comment-header">
             <p class="comment_item">Author comment: {{ newCommentKids.by }}</p>
-            <p class="comment_item">Comment Added: {{ converterTime() }}</p>
+            <p class="comment_item">Comment Added: {{ converterTime }}</p>
         </div>
         <div class="comment-body">
             <div class="comment_item">{{ newCommentKids.text }}</div>

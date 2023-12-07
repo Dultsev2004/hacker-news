@@ -1,33 +1,43 @@
 <script setup>
-import {computed, onMounted, ref} from "vue";
+import {computed, ref} from "vue";
 import NewCommentList from "@/components/NewCommentList.vue";
 const newComment = ref({});
 
 const props = defineProps({
-  commentId: {
+  comment: {
     type: Object,
     required: true,
   },
 })
 
-onMounted(async () => {
-    newComment.value = props.commentId;
+newComment.value = props.comment;
+
+
+
+const converterTime = computed(() => {
+  return new Date(newComment.value.time * 1000).toLocaleString('ru');
 });
 
-const converterTime = () => {
-  return new Date(newComment.value.time * 1000).toLocaleString('ru');
+const converterComment = () => {
+    const commentApi = newComment.value.text;
+    let newStr = "";
+
+    for (let symbol in commentApi) {
+        newStr += String.fromCharCode(parseInt(symbol,16))
+    }
+    return commentApi
 }
 </script>
 
 <template>
   <div class="comment">
     <div class="comment-header">
-      <p class="comment_item">Author comment: {{newComment.by }}</p>
-      <p class="comment_item">Comment Added: {{ converterTime() }}</p>
+      <p class="comment-header__item">Author comment: {{newComment.by }}</p>
+      <p class="comment-header__item">Comment Added: {{ converterTime }}</p>
     </div>
     <div class="comment-body">
-      <p class="comment_item">{{ newComment.text }}</p>
-      <div class="comment_item comment_item__kids" v-if="newComment.kids && newComment.kids.length">
+      <p class="comment-body__item" v-html="converterComment()"></p>
+      <div class="comment-body__item comment_item__kids" v-if="newComment.kids && newComment.kids.length">
           <NewCommentList :news-item="newComment.kids"></NewCommentList>
       </div>
     </div>
@@ -47,7 +57,6 @@ const converterTime = () => {
 .comment-header {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
 }
 
 .comment-body {
@@ -56,10 +65,33 @@ const converterTime = () => {
     gap: 10px;
 }
 
-.comment_item {
+.comment-header__item {
+    word-break: break-word;
+    color: var(--main-color);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.comment-body__item{
     word-break: break-word;
     color: var(--main-color);
     font-size: 13px;
     font-weight: 400;
+}
+
+@media screen and (max-width: 786px){
+  .comment-header__item {
+    word-break: break-word;
+    color: var(--main-color);
+    font-size: 10px;
+    font-weight: 700;
+  }
+    .comment-body__item{
+        word-break: break-word;
+        color: var(--main-color);
+        font-size: 10px;
+        font-weight: 400;
+    }
+
 }
 </style>

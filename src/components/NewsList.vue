@@ -1,26 +1,27 @@
 <script setup>
 import NewsItem from "@/components/NewsItem.vue";
 import {ref, onMounted, computed} from "vue";
-import { fetchNews } from '@/composables/api/allNews'
+import { fetchIdNews } from '@/composables/api/allNews'
 const newsIndex = ref([]);
 
 const getNews = async () => {
-  newsIndex.value = await fetchNews()
+    newsIndex.value = await fetchIdNews()
 }
 
 const displayedNews = computed(() => {
-  return newsIndex.value.slice(0, 100);
+    return newsIndex.value.slice(0, 100);
 })
 
 onMounted(async () => {
-   await getNews();
+    await getNews();
 });
+
 </script>
 
 <template>
   <section class="news">
     <div class="news-list">
-      <NewsItem v-for="(item, id) in displayedNews" :news-item="item" :key="id"/>
+      <NewsItem v-for="item in displayedNews" :news-item="item" :key="item"/>
     </div>
   </section>
 </template>

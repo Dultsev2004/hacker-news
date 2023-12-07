@@ -1,6 +1,6 @@
 <script setup>
 import {fetchNew } from "@/composables/api/allNews";
-import { onMounted, ref} from "vue";
+import { ref } from "vue";
 import NewComment from "@/components/NewComment.vue";
 const commentsIndex = ref([]);
 
@@ -12,20 +12,18 @@ const props = defineProps({
 })
 
 const getCommentsId = async () => {
-    console.log(props.newsItem);
     for (const item of props.newsItem) {
-        commentsIndex.value.push(await fetchNew(item));
+        const request = await fetchNew(item);
+        commentsIndex.value.push(request);
     }
 }
 
-onMounted(async () => {
-  await getCommentsId();
-});
+getCommentsId();
 </script>
 
 <template>
   <div class="comments">
-    <NewComment v-for="item in commentsIndex" :comment-id="item" :key="item"/>
+    <NewComment v-for="item in commentsIndex" :comment="item" :key="item"/>
   </div>
 </template>
 
